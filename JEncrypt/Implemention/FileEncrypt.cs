@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using JEncrypt.Interface;
 using JEncrypt.Common;
+using System.ComponentModel.Composition;
 
 namespace JEncrypt.Implemention
 {
+    [Export(typeof(IJEncrypt))]
     public class FileEncrypt : IJEncrypt
     {
         public FileEncrypt()

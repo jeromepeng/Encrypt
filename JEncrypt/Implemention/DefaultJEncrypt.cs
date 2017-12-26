@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 
 namespace JEncrypt.Implemention
 {
+    [Export(typeof(IJEncrypt))]
     public class DefaultJEncrypt : IJEncrypt
     {
         public DefaultJEncrypt()

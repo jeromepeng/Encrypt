@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JEncrypt.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -104,7 +105,10 @@ namespace JEUI
             ofd.FilterIndex = 1;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                Dictionary<string, string> headData = new Dictionary<string, string>();
+                headData.Add(HeadDataType.Suffix, ofd.FileName.Substring(ofd.FileName.Length - 3, 3));
                 FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+                headData.Add(HeadDataType.Length, fs.Length.ToString());
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, (int)fs.Length);
                 object exData;
