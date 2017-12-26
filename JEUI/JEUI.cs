@@ -36,7 +36,8 @@ namespace JEUI
         {
             if (!string.IsNullOrEmpty(rtbInput.Text))
             {
-                rtbOutput.Text = Encoding.Unicode.GetString(JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(rtbInput.Text, tbPassword.Text));
+                object exData;
+                rtbOutput.Text = Encoding.Unicode.GetString(JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(rtbInput.Text, tbPassword.Text, out exData));
             }
         }
 
@@ -73,11 +74,48 @@ namespace JEUI
                     FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
                     byte[] data = new byte[fs.Length];
                     fs.Read(data, 0, (int)fs.Length);
-                    byte[] stream = JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(data, tbPassword.Text);
+                    object exData;
+                    byte[] stream = JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(data, tbPassword.Text, out exData);
+                    SaveFileDialog sfd = new SaveFileDialog();
+                    sfd.InitialDirectory = "c:\\";
+                    sfd.Filter = "TXT File|*.txt";
+                    sfd.RestoreDirectory = true;
+                    sfd.FilterIndex = 1;
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        FileStream sfs = new FileStream(sfd.FileName, FileMode.OpenOrCreate);
+                        StreamWriter sw = new StreamWriter(sfs);
+                        sw.Write(Encoding.Unicode.GetString(stream));
+                        sw.Close();
+                        sfs.Close();
+                    }
                     rtbOutput.Text = Encoding.Unicode.GetString(stream);
                     fs.Close();
                 }
             }
+        }
+
+        private void btnEncryptFileClick(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = "c:\\";
+            ofd.Filter = "All File|*.*";
+            ofd.RestoreDirectory = true;
+            ofd.FilterIndex = 1;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, (int)fs.Length);
+                object exData;
+                byte[] stream = JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(data, tbPassword.Text, out exData);
+                SaveFileDialog sfd = new SaveFileDialog();
+            }
+        }
+
+        private void btnDecryptFileClick(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -14,7 +14,8 @@ namespace NothingToDo
             string test = "abcdefghijklmnopqrstuvwxyz啊喔额衣乌鱼";
             byte[] encryptBytes = JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Encrypt(test, "123");
             Console.WriteLine(Encoding.Unicode.GetString(encryptBytes));
-            Console.WriteLine(Encoding.Unicode.GetString(JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(encryptBytes, "123")));
+            object exData;
+            Console.WriteLine(Encoding.Unicode.GetString(JEncrypt.Encrypt.GetEncryptInstance(string.Empty).Decrypt(encryptBytes, "123", out exData)));
         }
     }
 }

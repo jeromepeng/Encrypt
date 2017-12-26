@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\RawDataParser.cs" />
     <Compile Include="Encrypt.cs" />
     <Compile Include="EncryptFactory.cs" />
     <Compile Include="Implemention\DefaultJEncrypt.cs" />
+    <Compile Include="Implemention\FileEncrypt.cs" />
     <Compile Include="Interface\IJEncrypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tool\CommonTools.cs" />
